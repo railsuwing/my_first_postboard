@@ -25,7 +25,10 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
-
+  #root 'posts#index'
+  #  resources :posts do 
+  #  resources :comments 
+  #end
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
@@ -53,4 +56,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  resources :posts
 end
