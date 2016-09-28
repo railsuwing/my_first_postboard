@@ -10,4 +10,25 @@ class PostsController < ApplicationController
  		@comment = Comment.new
   	@comments = @post.comments
   end
+
+  def new
+  	#產出一個空白物件(一筆空白資料)，並顯示在 posts/new 頁面
+    @post = Post.new
+  end
+
+  def create
+    post = Post.new(post_params)
+     #如果成功存進資料庫，就導回 index 頁面，失敗就再顯示一次表單
+    if post.save!
+      redirect_to posts_path
+    else
+      render :new
+    end
+  end
+ 
+  private
+#確保 params 裡面的 post hash 存在，並且允許 title 和 content 被存取
+  def post_params
+    params.require(:post).permit(:title, :content)
+  end
 end
