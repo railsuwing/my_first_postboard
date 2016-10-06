@@ -18,6 +18,7 @@ class PostsController < ApplicationController
 
   def create
     post = Post.new(post_params)
+    post.user = current_user
      #如果成功存進資料庫，就導回 index 頁面，失敗就再顯示一次表單
     if post.save!
       redirect_to posts_path
