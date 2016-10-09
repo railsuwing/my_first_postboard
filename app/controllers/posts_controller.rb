@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by {|x| x.total_votes }.reverse
   end
   
   def show
@@ -26,7 +26,20 @@ class PostsController < ApplicationController
       render :new
     end
   end
- 
+  
+  def vote
+    @post = Post.find(params[:id])
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+
+    if @vote.valid?
+      flash[:success] = 'Your vote was counted!'
+    else
+      flash[:error] = "You can only vote for #{@post.title} once!"
+    end
+
+    redirect_to :back
+  end
+
   private
 #確保 params 裡面的 post hash 存在，並且允許 title 和 content 被存取
   def post_params
