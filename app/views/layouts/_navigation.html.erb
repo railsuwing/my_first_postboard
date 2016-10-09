@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
           <li class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%=  "#{current_user.name}" %> 
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><%= "Welcome #{current_user.name}" %> 
               <span class="caret"></span></button>
               <ul class="dropdown-menu">
               <li><a href="#"><%= link_to 'User Profile', user_path(current_user) %></li>
