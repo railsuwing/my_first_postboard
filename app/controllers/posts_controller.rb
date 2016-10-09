@@ -30,6 +30,6 @@ class PostsController < ApplicationController
   private
 #確保 params 裡面的 post hash 存在，並且允許 title 和 content 被存取
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, category_ids: [])
   end
 end

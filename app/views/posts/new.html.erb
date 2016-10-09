@@ -1,4 +1,3 @@
-
 <%= render 'shared/title', title: 'New Post'%>
 <hr>
 <div class="well col-md-12">
@@ -12,6 +11,13 @@
       <%= f.label :content %>
       <br>
       <%= f.text_area :content, rows: 5 %>
+    </div>
+    <div class="form-group">
+      <%= f.label :categories %>
+      <br>
+      <%= collection_check_boxes(:post, :category_ids, Category.all, :id, :name) do |cbox|%>
+      <%= cbox.label(class: "checkbox-inline") { cbox.check_box(class: "checkbox") + cbox.text } %>
+      <% end %>
     </div>
   <br>
     <%= f.submit(@post.new_record? ? 'Create Post' : 'Update Post', class: 'btn btn-primary') %>
