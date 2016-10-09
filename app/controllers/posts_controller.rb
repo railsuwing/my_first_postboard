@@ -19,6 +19,7 @@ class PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     post.user = current_user
+
      #如果成功存進資料庫，就導回 index 頁面，失敗就再顯示一次表單
     if post.save!
       redirect_to posts_path
@@ -39,7 +40,7 @@ class PostsController < ApplicationController
 
     redirect_to :back
   end
-
+  
   private
 #確保 params 裡面的 post hash 存在，並且允許 title 和 content 被存取
   def post_params

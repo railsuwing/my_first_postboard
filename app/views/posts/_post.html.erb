@@ -1,19 +1,19 @@
-div class="row">
+<div class="row">
   <div class="row">
   <div class='col-md-1 well text-center'>
     <% if logged_in? %>
       <%= link_to vote_post_path(post, vote: true), class: "btn btn-primary", method: 'post' do %>
-        Like
+        <%= post.up_votes %> Like
       <% end %>
     <%end %>
 
-    <br/>
+     <br/>
     <%= post.total_votes %> Votes
     <br/>
 
     <% if logged_in? %>
         <%= link_to vote_post_path(post, vote: false), class: "btn btn-danger", method: 'post' do %>
-          Dislike
+          <%= post.down_vote %> Hate
         <% end %>
     <% end %>
   </div>

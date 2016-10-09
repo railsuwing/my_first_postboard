@@ -1,4 +1,5 @@
 <%= render 'shared/title', title: 'Post List'%>
+
 <% @posts.each do |post| %>
   <%= render 'post', post: post %>
 <% end %>

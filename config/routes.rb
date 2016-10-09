@@ -3,20 +3,36 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
   root 'posts#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
+
   get '/register', to: 'users#new'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  resources :users, only: [:new, :create, :edit, :update, :show]
+  resources :categories, only: [:index, :new, :create]
 
+  resources :posts do
+    member do
+      post :vote
+    end
+    
+    resources :comments, only: [:create, :show] do
+      member do
+        post :vote
+        # 產出 posts/1/comments/1/vote
+      end
+    end
+  end
   # Example resource route with options:
   #   resources :products do
   #     member do
@@ -29,21 +45,6 @@ Rails.application.routes.draw do
   #     end
   #   end
 
-
-    resources :users, only: [:new, :create, :edit, :update, :show]
-    resources :categories, only: [:index, :new, :create]
-    resources :posts do
-      member do
-        post :vote
-      end
-    
-    resources :comments, only: [:create, :show] do
-      member do
-        post :vote
-        # 產出 posts/1/comments/1/vote
-      end
-    end
-  end
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
@@ -71,5 +72,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
 end
